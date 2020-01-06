@@ -1,6 +1,6 @@
 # canvas-scripts
 
-##canvas-getAllGrades
+## canvas-getAllGrades
 Simple script that gets all grades from a STUDENT canvas api key
 
 To run:
