@@ -5,7 +5,7 @@ To run:
 1. Download and install python 3 (not 2!)
 2. Download and install pip
 3. Download or git clone the script
-4. `pip install requests` or `pip install requests --user` OR if that doesn't work, 'pip3 install requests' or 'pip3 install requests --user'
+4. `pip install requests` or `pip install requests --user` OR if that doesn't work, `pip3 install requests' or 'pip3 install requests --user'
 5. `python3 SCRIPT_NAME`
 
 To get API token:
