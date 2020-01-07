@@ -5,7 +5,7 @@ import sys
 from pip._vendor.distlib.compat import raw_input
 
 print("This script will use a canvas API token to get a list of courses with grades and parse the output into "
-      "human-readable text")
+      "human-readable text.")
 
 loop = True
 loop2 = True
@@ -23,6 +23,9 @@ if (len(sys.argv) == 3) | (len(sys.argv) == 4):
     loop2 = False
     loop3 = False
 
+if (len(sys.argv) == 1):
+    print("Try using arguments instead! python3 " + sys.argv[0] + " -h for more info.")
+
 while (loop):
 
     instructure_domain = str(raw_input("Please type the base URL for your canvas instance."))
@@ -31,10 +34,14 @@ while (loop):
 
     m = valURL.match(instructure_domain)
     if m:
-        print('Valid url')
-        loop = False
+        try:
+            testRequest = requests.get(instructure_domain)
+        except:
+            print("Invalid URL. Please try again.")
+        else:
+            loop = False
     else:
-        print('Invalid url. Please try again.')
+        print('Invalid URL. Please try again')
         if (instructure_domain.find("http://") == -1 & instructure_domain.find("https://") == -1):
             print('Remember to include http:// or https:// at the beginning of the URL!')
 
@@ -65,10 +72,13 @@ if loop3:
         print("Canceled")
         exit(1)
 
+
 r = requests.get(instructure_domain + "/api/v1/users/self/courses?include[]=total_scores&include["
                                       "]=current_grading_period_scores&enrollment_type=student&include["
                                       "]=concluded&per_page=1000",
                  headers=authhead)
+
+
 
 courses = str(r.content)
 if courses == """b'{"errors":[{"message":"Invalid access token."}]}'""":
