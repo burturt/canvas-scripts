@@ -97,6 +97,8 @@ getPercentGrade = re.compile('\"computed_current_score\":[0-9.]+')
 if len(sys.argv) == 4:
     exportFile = open(sys.argv[3], 'w')
     writeToFile = True
+else:
+    writeToFile = False
 
 for a in loc:
     print("---------------------------")
