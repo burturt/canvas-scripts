@@ -34,6 +34,9 @@ while (loop):
 
     m = valURL.match(instructure_domain)
     if m:
+        acceptURL = str(raw_input(
+            "Making a request to the url to verify it exists: " +
+            instructure_domain))
         try:
             testRequest = requests.get(instructure_domain)
         except:
