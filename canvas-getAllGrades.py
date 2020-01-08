@@ -1,8 +1,6 @@
 import re
 import requests
-import json
 import sys
-from pip._vendor.distlib.compat import raw_input
 
 print("This script will use a canvas API token to get a list of courses with grades and parse the output into "
       "human-readable text.")
