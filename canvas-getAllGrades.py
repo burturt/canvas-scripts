@@ -28,13 +28,13 @@ if (len(sys.argv) == 1):
 
 while (loop):
 
-    instructure_domain = str(raw_input("Please type the base URL for your canvas instance."))
+    instructure_domain = str(raw_input("Please type the base URL for your canvas instance:\n"))
 
     valURL = re.compile('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
 
     m = valURL.match(instructure_domain)
     if m:
-        print("Making a request to the url to verify it exists: ")
+        print("Making a request to the url to verify it exists...")
 
         try:
             testRequest = requests.get(instructure_domain)
@@ -52,7 +52,7 @@ while (loop2):
                               "settings and creating a new access token.\nWord of warning: giving out this token to "
                               "anyone will give them **FULL ACCESS** to your canvas account, so be careful where you "
                               "put "
-                              "this!"))
+                              "this!\n"))
     if authtoken != '':
         loop2 = False
     else:
@@ -65,7 +65,7 @@ if loop3:
     accept = str(raw_input(
         "Making a request to the url " +
         instructure_domain + "/api/v1 using the authentication token " +
-        authtoken + ". Proceed? [Y/n]"))
+        authtoken + ". Proceed? [Y/n]: "))
 
     if accept[0].lower() == 'y':
         print("Continuing")
@@ -83,9 +83,15 @@ r = requests.get(instructure_domain + "/api/v1/users/self/courses?include[]=tota
 
 
 courses = str(r.content)
+
 if courses == """b'{"errors":[{"message":"Invalid access token."}]}'""":
     print("Invalid access token. Exiting")
     exit(1)
+if r.status_code != 200:
+    print("Unknown response. Debug info is below:")
+    print("Status_code: " + r.status_code + "\nResponse: " + courses)
+    exit(1)
+
 
 loc = [mfindID.start() for mfindID in list(re.finditer('\"id\"\:', courses))]
 
