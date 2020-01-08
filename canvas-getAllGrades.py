@@ -1,19 +1,22 @@
 import re
 import requests
 import sys
-
-print("This script will use a canvas API token to get a list of courses with grades and parse the output into "
-      "human-readable text.")
+from configparser import ConfigParser
 
 loop = True
 loop2 = True
 loop3 = True
 writeToFile = False
+createConfig = False
+
+print("This script will use a canvas API token to get a list of courses with grades and parse the output into "
+      "human-readable text.")
 
 if (len(sys.argv) != 1) & (len(sys.argv) != 3) & (len(sys.argv) != 4):
     print("Usage: python3 " + sys.argv[0] + "CANVAS_URL CANVAS_API_TOKEN (optional)FILENAME_TO_SAVE_TO.txt)\nThe "
                                             "canvas url should be of format https://example.com, filename export is "
-                                            "optional.")
+                                            "optional. Config file will be used by default if no extra arguments are "
+                                            "given")
     exit(1)
 elif (len(sys.argv) == 3) | (len(sys.argv) == 4):
     authtoken = sys.argv[2]
@@ -26,7 +29,51 @@ elif (len(sys.argv) == 3) | (len(sys.argv) == 4):
         writeToFile = True
 
 elif (len(sys.argv) == 1):
-    print("Try using arguments instead! python3 " + sys.argv[0] + " -h for more info.")
+    try:
+        config = ConfigParser()
+        config.read('config.ini')
+        authtoken = config.get('canvas_auth', 'access_token')
+        instructure_domain = config.get('canvas_auth', 'instance')
+    except:
+        print("No valid config file found")
+        configFileExists = False
+    else:
+        loop = False
+        loop2 = False
+        loop3 = False
+        configFileExists = True
+        print("Valid config file (config.ini) found, using to populate options")
+        try:
+            arg3 = config.get('canvas_auth', 'output_file')
+        except:
+            print("Config specified no output file")
+        else:
+            writeToFile = True
+        print("Making a request to the url to verify it exists...")
+
+        try:
+            testRequest = requests.get(instructure_domain)
+        except:
+            print("Invalid URL. Exiting")
+            exit(1)
+    if not configFileExists:
+        print("Try using arguments instead! python3 " + sys.argv[0] + " -h for more info.")
+
+if loop3:
+    acceptz = input("Would you like to store your canvas URL, token, and output file settings in a config file? "
+                    "\nNote that while this may make it easier to run these scripts, random users may be able to get "
+                    "your token from the config files and use it! [Y/n]: ")
+
+    if acceptz[0].lower() == 'y':
+        print("Saving entered data in config file")
+        createConfig = True
+        configCreator = ConfigParser()
+        configCreator['canvas_auth'] = {}
+
+    else:
+        print("Not saving data in config file")
+        createConfig = False
+        exit(1)
 
 while (loop):
 
@@ -44,6 +91,9 @@ while (loop):
             print("Invalid URL. Please try again.")
         else:
             loop = False
+            if createConfig:
+                configCreator['canvas_auth']['instance'] = instructure_domain
+                print("Will save " + instructure_domain + " to config")
     else:
         print('Invalid URL. Please try again')
         if (instructure_domain.find("http://") == -1 & instructure_domain.find("https://") == -1):
@@ -51,12 +101,15 @@ while (loop):
 
 while (loop2):
     authtoken = input("Please paste your authentication token. You can get this by going to account --> "
-                              "settings and creating a new access token.\nWord of warning: giving out this token to "
-                              "anyone will give them **FULL ACCESS** to your canvas account, so be careful where you "
-                              "put "
-                              "this!\n")
+                      "settings and creating a new access token.\nWord of warning: giving out this token to "
+                      "anyone will give them **FULL ACCESS** to your canvas account, so be careful where you "
+                      "put "
+                      "this!\n")
     if authtoken != '':
         loop2 = False
+        if createConfig:
+            configCreator['canvas_auth']['access_token'] = authtoken
+            print("Will save " + authtoken + " to config")
     else:
         print("No token provided.")
 
@@ -76,7 +129,6 @@ if loop3:
         print("Canceled")
         exit(1)
 
-
 r = requests.get(instructure_domain + "/api/v1/users/self/courses?include[]=total_scores&include["
                                       "]=current_grading_period_scores&enrollment_type=student&include["
                                       "]=concluded&per_page=1000",
@@ -89,7 +141,7 @@ if courses == """b'{"errors":[{"message":"Invalid access token."}]}'""":
     exit(1)
 if r.status_code != 200:
     print("Unknown response. Debug info is below:")
-    print("Status_code: " + r.status_code + "\nResponse: " + courses)
+    print("Status_code: " + str(r.status_code) + "\nResponse: " + courses)
     exit(1)
 
 if loop3:
@@ -100,11 +152,21 @@ if loop3:
         print("Saving file to output.txt")
         writeToFile = True
         arg3 = "output.txt"
+        if createConfig:
+            configCreator['canvas_auth']['output_file'] = "output.txt"
+            print("Will enable output export in config")
 
     else:
         print("Not saving output as file.")
+        if createConfig:
+            print("Will disable output export in config")
 
 loc = [mfindID.start() for mfindID in list(re.finditer('\"id\"\:', courses))]
+
+if createConfig:
+    with open('config.ini', 'w') as configfile:
+        configCreator.write(configfile)
+    print("Config files saved.")
 
 getName = re.compile('(\"name\":\"[a-zA-Z0-9 -]+\")')
 getID = re.compile('[0-9]+')
@@ -117,7 +179,7 @@ if writeToFile:
 for j in range(len(loc)):
     a = loc[j]
     if j != (len(loc) - 1):
-        b = loc[j+1]
+        b = loc[j + 1]
     else:
         b = len(courses)
     print("---------------------------")
