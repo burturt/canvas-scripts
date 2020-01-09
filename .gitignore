@@ -133,6 +133,5 @@ dmypy.json
 workspace.xml
 
 # Ignore config files
-
 /config.ini
 config.ini
