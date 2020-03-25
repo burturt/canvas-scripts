@@ -1,7 +1,8 @@
 # Canvas Scripts
 
 ## canvas-getAllGrades
-Simple script that gets all grades from a STUDENT canvas api key
+Simple script that gets all grades from a STUDENT canvas api key.
+
 May or may not work with teacher canvas api key: no guarantees
 
 To run:
