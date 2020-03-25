@@ -135,3 +135,7 @@ workspace.xml
 # Ignore config files
 /config.ini
 config.ini
+
+# other
+.idea
+.DS_Store
