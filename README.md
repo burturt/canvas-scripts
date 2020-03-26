@@ -1,5 +1,7 @@
 # Canvas Scripts
 
+Warning: this software comes with no guarentees or warrenty. See https://github.com/burturt/canvas-scripts/blob/master/LICENSE for more information.
+
 ## canvas-getAllGrades
 Simple script that gets all grades from a STUDENT canvas api key.
 
