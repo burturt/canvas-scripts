@@ -2,6 +2,8 @@
 
 Warning: this software comes with no guarentees or warrenty. See https://github.com/burturt/canvas-scripts/blob/master/LICENSE for more information.
 
+There is an exe binary provided in the releases tab here: https://github.com/burturt/canvas-scripts/releases
+
 ## canvas-getAllGrades
 Simple script that gets all grades from a STUDENT canvas api key.
 
@@ -23,4 +25,4 @@ To get API token:
 6. Give name
 7. Create!
 
-If you can't follow the above instructions, you shouldn't be using this software. There is an exe binary provided in the releases section; however, no support is given for it.
+If you can't follow the above instructions, you shouldn't be using this software.
