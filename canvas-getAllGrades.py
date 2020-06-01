@@ -21,6 +21,11 @@ import re
 import requests
 import sys
 from configparser import ConfigParser
+# Verify using python 3
+PY3 = sys.version_info.major == 3
+if (PY3 != True):
+    print("It appears you are not using python 3. Python 3 is the only supported version and no support will be given "
+          "for other versions of python. You have been warned.")
 
 LINE = "---------------------------"
 configFileExists = False
@@ -32,7 +37,7 @@ print("This is free software, and you are welcome to redistribute it")
 print("under certain conditions; see https://git.io/Jv9Hg details.")
 print("Should the above links not work, please refer to the GNU General Public License as published by the Free "
       "Software Foundation, either version 3 of the License, or any later version. A copy of that license should have "
-      "been included with this program.") 
+      "been included with this program.")
 
 
 if len(sys.argv) != 1 and len(sys.argv) != 3 and len(sys.argv) != 4:
@@ -83,6 +88,11 @@ else:
             exit(1)
     if not configFileExists:
         print("Try using arguments instead! python3 " + sys.argv[0] + " -h for more info.")
+        if (PY3 != True):
+            print(
+                "It appears you are not using python 3. Python 3 is the only supported version and no support will be "
+                "given "
+                "for other versions of python. You have been warned.")
         acceptz = input("Would you like to store your canvas URL, token, and output file settings in a config file? "
                         "\nNote that while this may make it easier to run these scripts, random users may be able to "
                         "get "
@@ -98,6 +108,11 @@ else:
             print("Not saving data in config file")
             createConfig = False
         while True:
+            if (PY3 != True):
+                print(
+                    "It appears you are not using python 3. Python 3 is the only supported version and no support "
+                    "will be given "
+                    "for other versions of python. You have been warned.")
             instructure_domain = input(
                 "\nPlease type the base URL for your canvas instance:\nURL: ")
 
@@ -117,7 +132,11 @@ else:
                 print("Invalid URL. Please try again.")
                 if instructure_domain.find("http://") == -1 and instructure_domain.find("https://") == -1:
                     print("Remember to include \"http://\" or \"https://\"")
-
+        if (PY3 != True):
+            print(
+                "It appears you are not using python 3. Python 3 is the only supported version and no support will be "
+                "given "
+                "for other versions of python. You have been warned.")
         authtoken = input("Enter your authentication token. You can get this by going to:\n"
                           "  1) Account\n"
                           "  2) Settings\n"
@@ -176,6 +195,7 @@ getName = re.compile('(\"name\":\"[a-zA-Z0-9 -]+\")')
 getID = re.compile('[0-9]+')
 getLetterGrade = re.compile('\"computed_current_grade\":\"[A-Za-z+-]+\"')
 getPercentGrade = re.compile('\"computed_current_score\":[0-9.]+')
+getYearStarted = re.compile('\"start_at\":\"[0-9]{4}')
 
 if writeToFile: exportFile = open(arg3, 'w')
 
@@ -216,6 +236,18 @@ for j in range(len(loc)):
                 exportFile.write("No Course Name found\n")
 
         try:
+            mGetYearStarted = getYearStarted.search(substr)
+            substr2 = courses[mGetYearStarted.start(0) + a + 12:mGetYearStarted.end(0) + a]
+            print("Year started: " + substr2)
+            if writeToFile:
+                exportFile.write("Year started: " + substr2 + "\n")
+        except:
+            print("No start year found")
+            if writeToFile:
+                exportFile.write("No start year found\n")
+
+
+        try:
             mGetLetterGrade = getLetterGrade.search(substr)
             substr2 = courses[mGetLetterGrade.start(0) + a + 26:mGetLetterGrade.end(0) + a - 1]
             print("Letter Grade: " + substr2)
@@ -243,4 +275,7 @@ if writeToFile:
     exportFile.close()
     print("Successfully exported to file " + arg3)
 print("Done")
+if (PY3 != True):
+    print("It appears you are not using python 3. Python 3 is the only supported version and no support will be given "
+          "for other versions of python. You have been warned.")
 exit(0)
