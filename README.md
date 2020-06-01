@@ -11,7 +11,7 @@ To run:
 1. Download and install python 3 (not 2!) https://www.python.org/downloads/
 2. Download and install pip (https://pip.pypa.io/en/stable/installing/)
 3. Download or git clone the script
-4. `pip install requests` or `pip install requests --user` OR if that doesn't work, `pip3 install requests` or `pip3 install requests --user`
+4. `pip[3] install -r requirements.txt [--user]` Try the command with or without each [] until one works. Use sudo on linux (`sudo pip...`), on windows open a command prompt as admin.
 5. `python3 SCRIPT_NAME`
 
 To get API token:
@@ -23,4 +23,4 @@ To get API token:
 6. Give name
 7. Create!
 
-If you can't follow the above instructions, you shouldn't be using this software
+If you can't follow the above instructions, you shouldn't be using this software. There is an exe binary provided in the releases section; however, no support is given for it.
