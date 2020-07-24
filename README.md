@@ -1,6 +1,6 @@
 # Canvas Scripts
 
-Warning: this software comes with no guarentees or warrenty. See https://github.com/burturt/canvas-scripts/blob/master/LICENSE for more information. Yes, I realize it's a gigantic mess of code. Give me some slack, this is my first "real" python project. I might have just been a *bit* ambitious with this script so I definitely would write it much cleaner should it be today.
+Warning: this software comes with no guarentees or warrenty. See https://github.com/burturt/canvas-scripts/blob/master/LICENSE for more information. Yes, I realize it's a gigantic mess of code. Give me some slack, this is my first "real" python project. I might have just been a *bit* ambitious with this script at the time; I definitely would write it much cleaner if I rewrote it today.
 
 There is an exe binary provided in the releases tab here: https://github.com/burturt/canvas-scripts/releases
 
