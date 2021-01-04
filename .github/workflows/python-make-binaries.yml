@@ -1,13 +1,10 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
 name: Compile python to binary
 
 on:
   push:
     branches: [ master ]
   schedule:
-  - cron: "43 17 7 * *"
+  - cron: "47 22 4 * *"
 
 
 jobs:
@@ -16,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [windows-2019, ubuntu-20.04, ubuntu-18.04, ubuntu-16.04, macos-11.0, macos-10.15]
 
     steps:
     - uses: actions/checkout@v2
@@ -33,5 +30,5 @@ jobs:
         pyinstaller --onefile canvasGrades.py
     - uses: actions/upload-artifact@v2
       with:
-        name: canvasGrades-${{ runner.os }}
+        name: canvasGrades-${{ matrix.os }}
         path: dist/**
