@@ -118,5 +118,5 @@ if __name__ == '__main__':
         getGrades(CANVAS_URL, CANVAS_API_KEY, CANVAS_SEARCH_YEAR, CANVAS_SEARCH_MONTH)
     else:
         getGrades(CANVAS_URL, CANVAS_API_KEY)
-
+    dontclose = input("Finished! Hit enter to close.")
 
