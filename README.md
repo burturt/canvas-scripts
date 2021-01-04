@@ -2,8 +2,7 @@
 
 Warning: this software comes with no guarentees or warrenty. See https://github.com/burturt/canvas-scripts/blob/master/LICENSE for more information.
 
-There is an exe binary provided in the releases tab here: https://github.com/burturt/canvas-scripts/releases
-
+Self-contained binaries for this program are provided in the actions tab here: https://github.com/burturt/canvas-scripts/actions. You will need a github account to download them.
 ## canvas-getAllGrades
 Simple script that gets all grades from a STUDENT canvas api key.
 
