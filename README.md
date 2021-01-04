@@ -1,6 +1,8 @@
 # Canvas Scripts
+![Compile python to binary](https://github.com/burturt/canvas-scripts/workflows/Compile%20python%20to%20binary/badge.svg)
 
 Warning: this software comes with no guarentees or warranty. See https://github.com/burturt/canvas-scripts/blob/master/LICENSE for more information.
+
 Binaries for this program are provided in the actions tab here: https://github.com/burturt/canvas-scripts/actions. You will need a github account to download them. They are provided for the latest Windows, MacOS, and Ubuntu versions.
 
 ## canvasGrades
