@@ -139,3 +139,4 @@ config.ini
 # other
 .idea
 .DS_Store
+output.txt
