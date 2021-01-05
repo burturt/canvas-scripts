@@ -115,8 +115,9 @@ if __name__ == '__main__':
             elif (CANVAS_SEARCH_SEMESTER[0] == "S" or CANVAS_SEARCH_SEMESTER == "s"):
                 CANVAS_SEARCH_MONTH = "01"
             else:
-                print("I'm not sure what you mean. Quitting")
-                exit(1)
+                print("I'm not sure what you mean. Continuing without filter.")
+                CANVAS_SEARCH_YEAR = None
+                CANVAS_SEARCH_MONTH = None
             getGrades(CANVAS_URL, CANVAS_API_KEY, CANVAS_SEARCH_YEAR, CANVAS_SEARCH_MONTH)
         else:
             getGrades(CANVAS_URL, CANVAS_API_KEY)
