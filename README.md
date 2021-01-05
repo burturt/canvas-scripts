@@ -9,7 +9,11 @@ Binaries for this program are provided in the actions tab here: https://github.c
 Simple script that gets all grades from a canvas api key. Intended for students to get their own grade in all classes.
 
 ## Run from binary (recommended):
-1. Download the appropriate binary from https://github.com/burturt/canvas-scripts/actions and unzip it
+1. Download the appropriate binary from https://github.com/burturt/canvas-scripts/actions
+  - Open the Actions tab or click the above link
+  - Click on the first entry in the list
+  - Scroll down and click on the platform
+  - Download and unzip the zip file
 2. Run the program:
 - Windows: Double-click on the .exe file
 - MacOS: right-click --> open on the file
