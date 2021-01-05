@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Find and replace VERSIONNUM with the actual version number
-      uses: datamonsters/replace-action
+      uses: datamonsters/replace-action@v2
       with:
         files: canvasGrades.py 
         find: "VERSIONNUM=${{ github.run_number }}"
