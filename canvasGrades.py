@@ -72,50 +72,52 @@ def getGrades(API_URL, API_KEY, year_filter = None, month_filter = None):
 
     print(grades)
 
-# Press the green button in the gutter to run the script.
+# Run if called directly - check for arguments then run interactive
 if __name__ == '__main__':
-    if len(sys.argv) != 5 and len(sys.argv) != 3:
-        pass
-    elif len(sys.argv) == 3:
+    if len(sys.argv) == 3:
         getGrades(sys.argv[1], sys.argv[2])
-        exit(0)
-    else:
+    elif len(sys.argv) == 5:
         getGrades(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
-        exit(0)
-
-    # If called directly w/o arguments
-
-    print("canvasGrades Copyright (C) 2020 burturt")
-    print("This program comes with ABSOLUTELY NO WARRANTY; for details see https://git.io/Jv9Hg.")
-    print("This is free software, and you are welcome to redistribute it")
-    print("under certain conditions; see https://git.io/Jv9Hg details.")
-    print("Should the above links not work, please refer to the GNU General Public License as published by the Free "
-          "Software Foundation, either version 3 of the License, or any later version. A copy of that license should have "
-          "been included with this program.")
-
-    LINE = "---------------------------"
-    print(LINE)
-    CANVAS_URL = input("Enter the canvas url (looks like https://canvas.instructure.com): ")
-    CANVAS_API_KEY = input("Enter your authentication token. You can get this by going to:\n"
-                           "  1) Account\n"
-                           "  2) Settings\n"
-                           "  3) + New Access Token\n"
-                           "\nWARNING: Giving out this token to anyone will give them **FULL ACCESS** to your canvas "
-                           "account\nTOKEN: ")
-    filter = input("Do you want to only show one semester's classes? [y/n]: ")
-    if filter[0] == "y" or filter[0] == "Y":
-        CANVAS_SEARCH_YEAR = input(
-            "What year would you like to search for? Enter the year that the first day of school is in. ")
-        CANVAS_SEARCH_SEMESTER = input("Fall or Spring semester [F/S]? ")
-        if (CANVAS_SEARCH_SEMESTER[0] == "F" or CANVAS_SEARCH_SEMESTER == "f"):
-            CANVAS_SEARCH_MONTH = "08"
-        elif (CANVAS_SEARCH_SEMESTER[0] == "S" or CANVAS_SEARCH_SEMESTER == "s"):
-            CANVAS_SEARCH_MONTH = "01"
-        else:
-            print("I'm not sure what you mean. Quitting")
-            exit(1)
-        getGrades(CANVAS_URL, CANVAS_API_KEY, CANVAS_SEARCH_YEAR, CANVAS_SEARCH_MONTH)
+    elif len(sys.argv) != 1:
+        print("Invalid arguments.")
+        print("Usage: python3 <SCRIPT PATH> <CANVAS URL> <CANVAS API KEY> [FILTER YEAR] [FILTER MONTH]")
+        print("Example: python3 canvasGrades.py https://canvas.instructure.com 7~pluN3OlWcJoBi89pjwaezIsdfsg4svsdf5e6g5sbSPase4v5we45vDRR6u")
+        print("python3 canvasGrades.py https://canvas.instructure.com 7~pluN3OlWcJoBi89pjwaezIsdfsg4svsdf5e6g5sbSPase4v5we45vDRR6u 2020 08")
     else:
-        getGrades(CANVAS_URL, CANVAS_API_KEY)
-    dontclose = input("Finished! Hit enter to close.")
+
+        # If called directly w/o arguments
+
+        print("canvasGrades Copyright (C) 2020 burturt")
+        print("This program comes with ABSOLUTELY NO WARRANTY; for details see https://git.io/Jv9Hg.")
+        print("This is free software, and you are welcome to redistribute it")
+        print("under certain conditions; see https://git.io/Jv9Hg details.")
+        print("Should the above links not work, please refer to the GNU General Public License as published by the Free "
+              "Software Foundation, either version 3 of the License, or any later version. A copy of that license should have "
+              "been included with this program.")
+
+        LINE = "---------------------------"
+        print(LINE)
+        CANVAS_URL = input("Enter the canvas url (looks like https://canvas.instructure.com): ")
+        CANVAS_API_KEY = input("Enter your authentication token. You can get this by going to:\n"
+                               "  1) Account\n"
+                               "  2) Settings\n"
+                               "  3) + New Access Token\n"
+                               "\nWARNING: Giving out this token to anyone will give them **FULL ACCESS** to your canvas "
+                               "account\nTOKEN: ")
+        filter = input("Do you want to only show one semester's classes? [y/n]: ")
+        if filter[0] == "y" or filter[0] == "Y":
+            CANVAS_SEARCH_YEAR = input(
+                "What year would you like to search for? Enter the year that the first day of school is in. ")
+            CANVAS_SEARCH_SEMESTER = input("Fall or Spring semester [F/S]? ")
+            if (CANVAS_SEARCH_SEMESTER[0] == "F" or CANVAS_SEARCH_SEMESTER == "f"):
+                CANVAS_SEARCH_MONTH = "08"
+            elif (CANVAS_SEARCH_SEMESTER[0] == "S" or CANVAS_SEARCH_SEMESTER == "s"):
+                CANVAS_SEARCH_MONTH = "01"
+            else:
+                print("I'm not sure what you mean. Quitting")
+                exit(1)
+            getGrades(CANVAS_URL, CANVAS_API_KEY, CANVAS_SEARCH_YEAR, CANVAS_SEARCH_MONTH)
+        else:
+            getGrades(CANVAS_URL, CANVAS_API_KEY)
+        dontclose = input("Finished! Hit enter to close.")
 
