@@ -1,7 +1,6 @@
 #!/bin/python3
 # canvasGrades.py
 # Enjoy!
-#    Canvas-Get Grades
 #    Copyright (C) 2020 burturt
 #
 #    This program is free software: you can redistribute it and/or modify
