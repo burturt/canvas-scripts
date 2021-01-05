@@ -1,7 +1,6 @@
 #!/bin/python3
 # canvasGradesTest.py
 # Enjoy!
-#    canvasGradesEnv.py
 #    Copyright (C) 2020 burturt
 #
 #    This program is free software: you can redistribute it and/or modify
