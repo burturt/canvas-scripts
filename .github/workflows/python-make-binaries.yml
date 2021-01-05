@@ -19,6 +19,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Find and replace "VERSIONNUM" with the actual version number
+      uses: jacobtomlinson/gha-find-replace@master
+      with:
+        find: "VERSIONNUM"
+        replace: ${{ github.run_number }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
