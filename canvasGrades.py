@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
     # If called directly w/o arguments
 
-    print("Canvas-getAllGradesV2  Copyright (C) 2020 burturt")
+    print("canvasGrades Copyright (C) 2020 burturt")
     print("This program comes with ABSOLUTELY NO WARRANTY; for details see https://git.io/Jv9Hg.")
     print("This is free software, and you are welcome to redistribute it")
     print("under certain conditions; see https://git.io/Jv9Hg details.")
