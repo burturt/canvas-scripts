@@ -23,8 +23,7 @@ jobs:
       uses: datamonsters/replace-action@v2
       with:
         files: canvasGrades.py 
-        find: "VERSIONNUM=${{ github.run_number }}"
-        replace: ${{ github.run_number }}
+        replacements: "VERSIONNUM=${{ github.run_number }}"
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
