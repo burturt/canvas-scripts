@@ -45,9 +45,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: AUTO-${{ github.run_number }}
-          release_name: "[AUTO] Release ${{ github.run_number }}"
+          release_name: "[AUTO] Build ${{ github.run_number }}"
           body: |
-            New release!
+            New build!
             Check out https://github.com/burturt/canvas-scripts/commits/master to see changes
           draft: false
           prerelease: false
@@ -55,6 +55,11 @@ jobs:
         name: Download artifacts
       - name: Display structure of downloaded files
         run: ls -R
+      - name: Zip artifacts
+        run: |
+          zip -r Ubuntu-Linux.zip canvasGrades-Linux
+          zip -r Windows.zip canvasGrades-Windows
+          zip -r MacOS.zip canvasGrades-macOS
       - name: Upload Linux Build
         id: upload-linux
         uses: actions/upload-release-asset@v1 
@@ -62,9 +67,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: canvasGrades-Linux/canvasGrades
-          asset_name: canvasGrades-Linux
-          asset_content_type: application/x-executable
+          asset_path: Ubuntu-Linux.zip
+          asset_name: Ubuntu-Linux.zip
+          asset_content_type: application/zip
       - name: Upload Windows Build
         id: upload-windows
         uses: actions/upload-release-asset@v1 
@@ -72,9 +77,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: canvasGrades-Windows/canvasGrades.exe
-          asset_name: canvasGrades-Windows.exe
-          asset_content_type: application/x-executable
+          asset_path: Windows.zip
+          asset_name: Windows.zip
+          asset_content_type: application/zip
           
       - name: Upload Windows Build
         id: upload-macos
@@ -83,7 +88,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: canvasGrades-macOS/canvasGrades
-          asset_name: canvasGrades-macOS
-          asset_content_type: application/x-executable
-          
+          asset_path: MacOS.zip
+          asset_name: MacOS.zip
+          asset_content_type: application/zip
