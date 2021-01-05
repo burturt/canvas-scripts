@@ -44,11 +44,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.run_number }}
-          release_name: Release ${{ github.run_number }}
+          tag_name: AUTO-${{ github.run_number }}
+          release_name: "[AUTO] Release ${{ github.run_number }}"
           body: |
             New release!
-            Check out ${{ github.repository }}'s commits to see changes
+            Check out https://github.com/burturt/canvas-scripts/commits/master to see changes
           draft: false
           prerelease: false
       - uses: actions/download-artifact@v2
@@ -62,7 +62,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: canvasGrades-Linux
+          asset_path: canvasGrades-Linux/canvasGrades
           asset_name: canvasGrades-Linux
           asset_content_type: application/x-executable
       - name: Upload Windows Build
@@ -72,8 +72,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: canvasGrades-Windows
-          asset_name: canvasGrades-Windows
+          asset_path: canvasGrades-Windows/canvasGrades.exe
+          asset_name: canvasGrades-Windows.exe
           asset_content_type: application/x-executable
           
       - name: Upload Windows Build
@@ -83,7 +83,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: canvasGrades-macOS
+          asset_path: canvasGrades-macOS/canvasGrades
           asset_name: canvasGrades-macOS
           asset_content_type: application/x-executable
           
