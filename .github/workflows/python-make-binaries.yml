@@ -20,9 +20,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Find and replace "VERSIONNUM" with the actual version number
-      uses: jacobtomlinson/gha-find-replace@master
+      uses: datamonsters/replace-action
       with:
-        find: "VERSIONNUM"
+        files: canvasGrades.py 
+        find: "VERSIONNUM=${{ github.run_number }}"
         replace: ${{ github.run_number }}
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
