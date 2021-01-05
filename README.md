@@ -3,23 +3,19 @@
 
 Warning: this software comes with no guarentees or warranty. See https://github.com/burturt/canvas-scripts/blob/master/LICENSE for more information.
 
-Binaries for this program are provided in the actions tab here: https://github.com/burturt/canvas-scripts/actions. You will need a github account to download them. They are provided for the latest Windows, MacOS, and Ubuntu versions.
+Binaries for this program are automatically built. You can find them in the Actions tab or in releases. Downloading them from Actions requires a github account.
 
 ## canvasGrades
 Simple script that gets all grades from a canvas api key. Intended for students to get their own grade in all classes.
 
 ## Run from binary (recommended):
-1. Download the appropriate binary from https://github.com/burturt/canvas-scripts/actions
-  - Open the Actions tab or click the above link
-  - Click on the first entry in the list
-  - Scroll down and click on the platform
-  - Download and unzip the zip file
+1. Download the appropriate file from https://github.com/burturt/canvas-scripts/releases/latest and unzip it. Don't download the Source Code, download the canvasGrades-Linux/MacOS/Windows.zip file.
 2. Run the program:
 - Windows: Double-click on the .exe file
 - MacOS: right-click --> open on the file
 - Ubuntu: Open a terminal, navigate to where the binary is located, then run `./canvasGrades`
 
-#### Run manually:
+### Run manually:
 
 To run:
 1. Download and install python 3 (not 2!) https://www.python.org/downloads/
