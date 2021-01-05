@@ -34,3 +34,56 @@ jobs:
       with:
         name: canvasGrades-${{ runner.os }}
         path: dist/**
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Release ${{ github.run_number }}
+          body: |
+            New release!
+            Check out ${{ github.repository }}'s commits to see changes
+          draft: false
+          prerelease: false
+      - uses: actions/download-artifact@v2
+        name: Download artifacts
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Upload Linux Build
+        id: upload-linux
+        uses: actions/upload-release-asset@v1 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: canvasGrades-Linux
+          asset_name: canvasGrades-Linux
+          asset_content_type: application/x-executable
+      - name: Upload Windows Build
+        id: upload-windows
+        uses: actions/upload-release-asset@v1 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: canvasGrades-Windows
+          asset_name: canvasGrades-Windows
+          asset_content_type: application/x-executable
+          
+      - name: Upload Windows Build
+        id: upload-macos
+        uses: actions/upload-release-asset@v1 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: canvasGrades-macOS
+          asset_name: canvasGrades-macOS
+          asset_content_type: application/x-executable
+          
