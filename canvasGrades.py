@@ -23,6 +23,7 @@ import requests
 
 
 def getGrades(API_URL, API_KEY, year_filter = None, month_filter = None):
+    print("Using canvasGrades.py vVERSIONNUM")
     LINE = "---------------------------\n"
     if not (sys.version_info.major == 3):
         print(
