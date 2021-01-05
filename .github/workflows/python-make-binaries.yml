@@ -1,3 +1,5 @@
+# Compiles python into executable files for macos, linux, and windows
+
 name: Compile python to binary
 
 on:
@@ -13,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-2019, ubuntu-20.04, ubuntu-18.04, ubuntu-16.04, macos-11.0, macos-10.15]
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -30,5 +32,5 @@ jobs:
         pyinstaller --onefile canvasGrades.py
     - uses: actions/upload-artifact@v2
       with:
-        name: canvasGrades-${{ matrix.os }}
+        name: canvasGrades-${{ runner.os }}
         path: dist/**
