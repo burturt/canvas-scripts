@@ -54,6 +54,7 @@ jobs:
           body: |
             New build!
             Check out https://github.com/burturt/canvas-scripts/commits/master to see changes
+            If you want to run the program yourself, download one of the files under "Assets" with the name of your operating system.
           draft: false
           prerelease: false
       - uses: actions/download-artifact@v2
