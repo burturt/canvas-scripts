@@ -62,9 +62,11 @@ jobs:
         run: ls -R
       - name: Zip artifacts
         run: |
-          zip -r Ubuntu-Linux.zip canvasGrades-Linux
-          zip -r Windows.zip canvasGrades-Windows
-          zip -r MacOS.zip canvasGrades-macOS
+          chmod +x canvasGrades-Linux/canvasGrades
+          chmod +x canvasGrades-macOS/canvasGrades
+          zip -r canvasGrades-Linux-${{ github.run_number }}.zip canvasGrades-Linux
+          zip -r canvasGrades-Windows-${{ github.run_number }}.zip canvasGrades-Windows
+          zip -r canvasGrades-MacOS-${{ github.run_number }}.zip canvasGrades-macOS
       - name: Upload Linux Build
         id: upload-linux
         uses: actions/upload-release-asset@v1 
@@ -72,8 +74,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: Ubuntu-Linux.zip
-          asset_name: Ubuntu-Linux.zip
+          asset_path: canvasGrades-Linux-${{ github.run_number }}.zip
+          asset_name: canvasGrades-Linux-${{ github.run_number }}.zip
           asset_content_type: application/zip
       - name: Upload Windows Build
         id: upload-windows
@@ -82,8 +84,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: Windows.zip
-          asset_name: Windows.zip
+          asset_path: canvasGrades-Windows-${{ github.run_number }}.zip
+          asset_name: canvasGrades-Windows-${{ github.run_number }}.zip
           asset_content_type: application/zip
           
       - name: Upload Windows Build
@@ -93,6 +95,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: MacOS.zip
-          asset_name: MacOS.zip
+          asset_path: canvasGrades-MacOS.zip
+          asset_name: canvasGrades-MacOS.zip
           asset_content_type: application/zip
