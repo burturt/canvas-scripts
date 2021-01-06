@@ -16,32 +16,34 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
+# CONSTANTS
+LINE = "---------------------------"
+
 import datetime
 import sys
 import json
 import requests
 
-
 def getGrades(API_URL, API_KEY, year_filter = None, month_filter = None):
     print("\n\nUsing canvasGrades.py vVERSIONNUM\n\n")
-    LINE = "---------------------------\n"
+
     if not (sys.version_info.major == 3):
         print(
             "It appears you are not using python 3. Python 3 is the only supported version and no support will be given "
             "for other versions of python. You have been warned.")
     grades = ""
     try:
-        r = requests.get(API_URL + "/api/v1/users/self/courses?include[]=total_scores&include["
-                                              "]=current_grading_period_scores&enrollment_type=student&include["
-                                              "]=concluded&per_page=1000",
-                         headers={"Authorization": "Bearer " + API_KEY})
-
+        url = API_URL + "/api/v1/users/self/courses?include["\
+                        "]=total_scores&include[]=current_grading_period_scores&enrollment_type=student&include["\
+                        "]=concluded&per_page=1000"
+        r = requests.get(url, headers={"Authorization": "Bearer " + API_KEY})
         courses = json.loads(r.content.decode("utf-8"))
     except:
         print("An error occurred while trying to get the grades. Make sure the URL and token is correct!")
         raise
 
-    grades += LINE
+    grades += LINE + "\n"
 
     if year_filter and month_filter:
         search_string = year_filter + "-" + month_filter + "-01"
@@ -61,7 +63,7 @@ def getGrades(API_URL, API_KEY, year_filter = None, month_filter = None):
             date_difference = abs((start_date - search_date).days)
             if not (date_difference < 60):
                 continue
-        grades += LINE
+        grades += LINE + "\n"
         grades += "Course name: " + i["name"] + "\n"
         grades += "Course ID: " + str(i["id"]) + "\n"
         grades += "Start date: " + str(start_date.date()) + "\n"
@@ -69,7 +71,7 @@ def getGrades(API_URL, API_KEY, year_filter = None, month_filter = None):
 
         grades += "Percent Grade: " + str(i["enrollments"][0]["computed_current_score"]) + ("%" if i["enrollments"][0]["computed_current_score"] else "") + "\n"
 
-    grades += LINE
+    grades += LINE + "\n"
 
     print(grades)
 
@@ -85,9 +87,7 @@ if __name__ == '__main__':
         print("Example: python3 canvasGrades.py https://canvas.instructure.com 7~pluN3OlWcJoBi89pjwaezIsdfsg4svsdf5e6g5sbSPase4v5we45vDRR6u")
         print("python3 canvasGrades.py https://canvas.instructure.com 7~pluN3OlWcJoBi89pjwaezIsdfsg4svsdf5e6g5sbSPase4v5we45vDRR6u 2020 08")
     else:
-
         # If called directly w/o arguments
-
         print("canvasGrades Copyright (C) 2020 burturt")
         print("This program comes with ABSOLUTELY NO WARRANTY; for details see https://git.io/Jv9Hg.")
         print("This is free software, and you are welcome to redistribute it")
@@ -96,8 +96,8 @@ if __name__ == '__main__':
               "Software Foundation, either version 3 of the License, or any later version. A copy of that license should have "
               "been included with this program.")
 
-        LINE = "---------------------------"
         print(LINE)
+
         CANVAS_URL = input("Enter the canvas url (looks like https://canvas.instructure.com): ")
         CANVAS_API_KEY = input("Enter your authentication token. You can get this by going to:\n"
                                "  1) Account\n"
@@ -106,13 +106,13 @@ if __name__ == '__main__':
                                "\nWARNING: Giving out this token to anyone will give them **FULL ACCESS** to your canvas "
                                "account\nTOKEN: ")
         filter = input("Do you want to only show one semester's classes? [y/n]: ")
-        if filter[0] == "y" or filter[0] == "Y":
+        if filter[0].lower() == "y":
             CANVAS_SEARCH_YEAR = input(
                 "What year would you like to search for? Enter the year that the first day of school is in. ")
             CANVAS_SEARCH_SEMESTER = input("Fall or Spring semester [F/S]? ")
-            if (CANVAS_SEARCH_SEMESTER[0] == "F" or CANVAS_SEARCH_SEMESTER == "f"):
+            if CANVAS_SEARCH_SEMESTER[0].lower() == "f":
                 CANVAS_SEARCH_MONTH = "08"
-            elif (CANVAS_SEARCH_SEMESTER[0] == "S" or CANVAS_SEARCH_SEMESTER == "s"):
+            elif CANVAS_SEARCH_SEMESTER[0].lower() == "s":
                 CANVAS_SEARCH_MONTH = "01"
             else:
                 print("I'm not sure what you mean. Quitting")
