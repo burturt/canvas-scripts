@@ -55,7 +55,7 @@ def getGrades(API_URL, API_KEY, year_filter = None, month_filter = None):
 
 
     for i in courses:
-        # Some courses don't have a start_date b/c they are closed
+        # Some courses don't have a start_date because they are closed
         if "access_restricted_by_date" in i:
             continue
         start_date = datetime.datetime.strptime(i["start_at"], '%Y-%m-%dT%H:%M:%SZ')
@@ -67,9 +67,15 @@ def getGrades(API_URL, API_KEY, year_filter = None, month_filter = None):
         grades += "Course name: " + i["name"] + "\n"
         grades += "Course ID: " + str(i["id"]) + "\n"
         grades += "Start date: " + str(start_date.date()) + "\n"
-        grades += "Letter Grade: " + str(i["enrollments"][0]["computed_current_grade"]) + "\n"
-
-        grades += "Percent Grade: " + str(i["enrollments"][0]["computed_current_score"]) + ("%" if i["enrollments"][0]["computed_current_score"] else "") + "\n"
+        # Some classes do not have a calculated letter grade or percent
+        try:
+          grades += "Letter Grade: " + str(i["enrollments"][0]["computed_current_grade"]) + "\n"
+        except:
+          grades += "Letter Grade: No letter grade available\n"
+        try:
+          grades += "Percent Grade: " + str(i["enrollments"][0]["computed_current_score"]) + ("%" if i["enrollments"][0]["computed_current_score"] else "") + "\n"
+        except:
+          grades += "Percent Grade: No percent grade available\n"
 
     grades += LINE + "\n"
 
