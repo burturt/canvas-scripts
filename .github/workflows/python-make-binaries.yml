@@ -54,7 +54,7 @@ jobs:
             If you want to run the program yourself, download one of the files under "Assets" with the name of your operating system.
           draft: false
           prerelease: false
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v4.1.7
         name: Download artifacts
       - name: Display structure of downloaded files
         run: ls -R
